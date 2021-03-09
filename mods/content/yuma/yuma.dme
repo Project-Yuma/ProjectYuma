@@ -1,0 +1,9 @@
+#ifndef MODPACK_YUMA
+#define MODPACK_YUMA
+// BEGIN_INCLUDE
+#include "yuma.dm"
+#include "flora/flora.dm"
+#include "turfs\subterranean.dm"
+#include "turfs\surface.dm"
+// END_INCLUDE
+#endif
