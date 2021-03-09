@@ -20,9 +20,9 @@ SUBSYSTEM_DEF(lore)
 	var/list/credits_adventure_names = list("QUEST", "FORCE", "ADVENTURE")
 	var/list/credits_crew_names =      list("EVERYONE")
 	var/list/credits_holidays =        list("HOLIDAY", "VACATION")
-	var/list/credits_adjectives =      list("SEXY", "ARCANE", "POLITICALLY MOTIVATED")
-	var/list/credits_crew_outcomes =   list("PICKLED", "A VALUABLE HISTORY LESSON", "A BREAK", "HIGH", "TO LIVE", "TO RELIVE THEIR CHILDHOOD")
-	var/list/credits_topics =          list("SACRED GEOMETRY","ABSTRACT MATHEMATICS","LOVE","DRUGS","CRIME","PRODUCTIVITY","LAUNDRY")
+	var/list/credits_adjectives =      list(/*"SEXY", "ARCANE", "POLITICALLY MOTIVATED"*/) // YUMA EDIT
+	var/list/credits_crew_outcomes =   list(/*"PICKLED", "A VALUABLE HISTORY LESSON", "A BREAK", "HIGH", "TO LIVE", "TO RELIVE THEIR CHILDHOOD"*/) // YUMA EDIT
+	var/list/credits_topics =          list(/*"SACRED GEOMETRY","ABSTRACT MATHEMATICS","LOVE","DRUGS","CRIME","PRODUCTIVITY","LAUNDRY"*/) // YUMA EDIT
 	var/list/credits_nouns =           list("DIGNITY", "SANITY")
 
 	// Probably not the best subsystem for these, but oh well.
@@ -68,13 +68,21 @@ SUBSYSTEM_DEF(lore)
 	if(!GLOB.end_credits_title || force)
 		var/list/possible_titles = list()
 		refresh_credits_from_departments()
-		possible_titles += "THE [pick("DOWNFALL OF", "RISE OF", "TROUBLE WITH", "FINAL STAND OF", "DARK SIDE OF", "DESOLATION OF", "DESTRUCTION OF", "CRISIS OF")] [pick(credits_nouns)]"
-		possible_titles += "[pick(credits_crew_names)] GETS SERIOUS ABOUT [pick(credits_topics)]"
-		possible_titles += "[pick(credits_crew_names)] GETS [pick(credits_crew_outcomes)]"
-		possible_titles += "[pick(credits_crew_names)] LEARNS ABOUT [pick(credits_topics)]"
-		possible_titles += "A VERY [pick(credits_adjectives)] [pick(credits_holidays)]"
-		possible_titles += "[pick(credits_adjectives)] [pick(credits_adventure_names)]"
-		possible_titles += "[pick(credits_topics)] [pick(credits_adventure_names)]"
+		if(length(credits_nouns)))
+			possible_titles += "THE [pick("DOWNFALL OF", "RISE OF", "TROUBLE WITH", "FINAL STAND OF", "DARK SIDE OF", "DESOLATION OF", "DESTRUCTION OF", "CRISIS OF")] [pick(credits_nouns)]"
+		if(length(credits_crew_names))
+			if(length(credits_topics))
+				possible_titles += "[pick(credits_crew_names)] GETS SERIOUS ABOUT [pick(credits_topics)]"
+				possible_titles += "[pick(credits_crew_names)] LEARNS ABOUT [pick(credits_topics)]"
+			if(length(credits_crew_outcomes))
+				possible_titles += "[pick(credits_crew_names)] GETS [pick(credits_crew_outcomes)]"
+		if(length(credits_adjectives) && length(credits_holidays))
+				possible_titles += "A VERY [pick(credits_adjectives)] [pick(credits_holidays)]"
+		if(length(credits_adventure_names))
+			if(length(credits_adjectives))
+				possible_titles += "[pick(credits_adjectives)] [pick(credits_adventure_names)]"
+			if(length(credits_topics))
+				possible_titles += "[pick(credits_topics)] [pick(credits_adventure_names)]"
 		possible_titles += "THE DAY [uppertext(GLOB.using_map.station_short)] STOOD STILL"
 		possible_titles |= credits_other
 		GLOB.end_credits_title = pick(possible_titles)
