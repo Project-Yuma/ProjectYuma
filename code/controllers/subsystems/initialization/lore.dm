@@ -68,7 +68,7 @@ SUBSYSTEM_DEF(lore)
 	if(!GLOB.end_credits_title || force)
 		var/list/possible_titles = list()
 		refresh_credits_from_departments()
-		if(length(credits_nouns)))
+		if(length(credits_nouns))
 			possible_titles += "THE [pick("DOWNFALL OF", "RISE OF", "TROUBLE WITH", "FINAL STAND OF", "DARK SIDE OF", "DESOLATION OF", "DESTRUCTION OF", "CRISIS OF")] [pick(credits_nouns)]"
 		if(length(credits_crew_names))
 			if(length(credits_topics))
@@ -77,7 +77,7 @@ SUBSYSTEM_DEF(lore)
 			if(length(credits_crew_outcomes))
 				possible_titles += "[pick(credits_crew_names)] GETS [pick(credits_crew_outcomes)]"
 		if(length(credits_adjectives) && length(credits_holidays))
-				possible_titles += "A VERY [pick(credits_adjectives)] [pick(credits_holidays)]"
+			possible_titles += "A VERY [pick(credits_adjectives)] [pick(credits_holidays)]"
 		if(length(credits_adventure_names))
 			if(length(credits_adjectives))
 				possible_titles += "[pick(credits_adjectives)] [pick(credits_adventure_names)]"
